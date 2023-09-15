@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { Titlebar, TitlebarColor } from 'custom-electron-titlebar'
 import { contextBridge, ipcRenderer } from 'electron'
 
 // --------- Expose some API to the Renderer process ---------
@@ -25,9 +25,7 @@ function withPrototype(obj: Record<string, any>) {
 }
 
 // --------- Preload scripts loading ---------
-async function domReady(
-  condition: DocumentReadyState[] = ['complete', 'interactive'],
-) {
+async function domReady(condition: DocumentReadyState[] = ['complete', 'interactive']) {
   return new Promise((resolve) => {
     if (condition.includes(document.readyState)) {
       resolve(true)
@@ -112,18 +110,11 @@ function useLoading() {
 // ----------------------------------------------------------------------
 
 type RemoveLoadingMessage = { payload: 'removeLoading' }
-type UpdateBackgroundMessage = {
-  payload: 'updateBackground'
-  backgroundColor: string
-}
 
-type KnownMessages = MessageEvent<
-  RemoveLoadingMessage | UpdateBackgroundMessage
->
-
-let titlebar: Titlebar | null = null
+type KnownMessages = MessageEvent<RemoveLoadingMessage>
 
 const { appendLoading, removeLoading } = useLoading()
+
 domReady().then(appendLoading)
 
 window.onmessage = (ev: KnownMessages) => {
@@ -131,17 +122,7 @@ window.onmessage = (ev: KnownMessages) => {
     case 'removeLoading':
       removeLoading()
       break
-
-    case 'updateBackground':
-      titlebar?.updateBackground(TitlebarColor.fromHex(ev.data.backgroundColor))
-      break
   }
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-  titlebar = new Titlebar({
-    onlyShowMenuBar: true,
-  })
-})
 
 setTimeout(removeLoading, 5000)

@@ -21,8 +21,7 @@ const ThemeProvider: React.FC<PropsWithChildren<Props>> = ({
   const prefersDarkScheme = useMedia('(prefers-color-scheme: dark)')
 
   useEffect(() => {
-    const toggleClass =
-      (theme === 'system' && prefersDarkScheme) || theme === 'dark'
+    const toggleClass = (theme === 'system' && prefersDarkScheme) || theme === 'dark'
     const message = {
       payload: 'updateBackground',
       backgroundColor: toggleClass ? '#020817' : '#ffffff',

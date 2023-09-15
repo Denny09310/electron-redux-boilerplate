@@ -5,8 +5,9 @@ import { createReduxHistoryContext } from 'redux-first-history'
 
 import { api } from './api'
 
-const { createReduxHistory, routerMiddleware, routerReducer } =
-  createReduxHistoryContext({ history: createHashHistory() })
+const { createReduxHistory, routerMiddleware, routerReducer } = createReduxHistoryContext({
+  history: createHashHistory(),
+})
 
 export const store = configureStore({
   reducer: {

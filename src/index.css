@@ -64,18 +64,71 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
   }
+
+  #title-bar {
+    width: calc(100% - 2px);
+  }
+
+  #title-bar #drag-region {
+    -webkit-app-region: drag;
+    grid-template-columns: max-content min-content auto 138px;
+  }
+
+  #title-bar .menu-button,
+  #title-bar #menu,
+  #title-bar #window-controls {
+    -webkit-app-region: no-drag;
+  }
+
+  #main {
+    height: calc(100% - 2rem);
+  }
+
+  #window-title {
+    margin-left: 8px;
+  }
 }
 
 @layer base {
   * {
     @apply border-border m-0 p-0 box-border;
   }
+
   html,
   body,
   #root {
     @apply h-full;
   }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-hidden;
+  }
+
+  #title-bar {
+    @apply block fixed h-8;
+  }
+
+  #title-bar #drag-region {
+    @apply w-full h-full grid gap-4;
+  }
+
+  #title-bar #menu {
+    @apply flex items-center;
+  }
+
+  #title-bar .menu-button {
+    @apply ml-2;
+  }
+
+  #title-bar #window-controls {
+    @apply grid grid-cols-window-controls absolute top-0 right-0 h-full;
+  }
+
+  #title-bar #window-title {
+    @apply col-span-1 flex items-center overflow-hidden ml-3 text-xs gap-2;
+  }
+
+  #main {
+    @apply p-6 overflow-y-auto;
   }
 }

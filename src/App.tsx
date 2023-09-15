@@ -3,8 +3,10 @@ import { Route, Routes } from 'react-router-dom'
 import { HistoryRouter } from 'redux-first-history/rr6'
 
 import { history, store } from '@/app/store'
-import ThemeProvider from '@/components/providers/theme-provider'
 import Index from '@/routes'
+
+import MainLayout from '@/components/layouts/main-layout'
+import ThemeProvider from '@/components/providers/theme-provider'
 
 function App() {
   return (
@@ -12,7 +14,9 @@ function App() {
       <ThemeProvider>
         <HistoryRouter history={history}>
           <Routes>
-            <Route path="/" element={<Index />} />
+            <Route element={<MainLayout />}>
+              <Route path="/" element={<Index />} />
+            </Route>
           </Routes>
         </HistoryRouter>
       </ThemeProvider>

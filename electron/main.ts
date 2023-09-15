@@ -1,26 +1,13 @@
 import path from 'node:path'
 
-import {
-  attachTitlebarToWindow,
-  setupTitlebar,
-} from 'custom-electron-titlebar/main'
 import { BrowserWindow, app } from 'electron'
 
-// The built directory structure
-//
-// ├─┬─┬ dist
-// │ │ └── index.html
-// │ │
-// │ ├─┬ dist-electron
-// │ │ ├── main.js
-// │ │ └── preload.js
-// │
+import { setupListeners } from './listeners'
+
 process.env.DIST = path.join(__dirname, '../dist')
 process.env.VITE_PUBLIC = app.isPackaged
   ? process.env.DIST
   : path.join(process.env.DIST, '../public')
-
-setupTitlebar()
 
 let win: BrowserWindow | null
 // 🚧 Use ['ENV_NAME'] avoid vite:define plugin - Vite@2.x
@@ -28,20 +15,21 @@ const VITE_DEV_SERVER_URL = process.env['VITE_DEV_SERVER_URL']
 
 function createWindow() {
   win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    frame: false,
     icon: path.join(process.env.VITE_PUBLIC, 'electron-vite.svg'),
-    titleBarOverlay: true,
-    titleBarStyle: 'hidden',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
   })
 
-  attachTitlebarToWindow(win)
+  // Setup the listeners for the custom titlebar
+  setupListeners(win)
 
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL)
   } else {
-    // win.loadFile('dist/index.html')
     win.loadFile(path.join(process.env.DIST, 'index.html'))
   }
 }
