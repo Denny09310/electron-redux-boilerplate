@@ -1,0 +1,80 @@
+@tailwind base;
+
+@layer base {
+  #title-bar {
+    width: calc(100% - 2px);
+  }
+
+  #title-bar #drag-region {
+    -webkit-app-region: drag;
+    grid-template-columns: max-content min-content max-content auto 9rem;
+  }
+
+  #title-bar #window-controls {
+    grid-template-columns: repeat(3, 3rem);
+  }
+
+  #title-bar .menu-button,
+  #title-bar #menu,
+  #title-bar #window-controls {
+    -webkit-app-region: no-drag;
+  }
+
+  #main {
+    height: calc(100% - 2.5rem);
+  }
+
+  @screen lg {
+    #title-bar #drag-region {
+      grid-template-columns: max-content min-content auto 9rem;
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply m-0 box-border p-0;
+  }
+
+  html,
+  body,
+  #root {
+    @apply h-full;
+  }
+
+  body {
+    @apply overflow-hidden;
+  }
+
+  #title-bar {
+    @apply fixed block h-10;
+  }
+
+  #title-bar #drag-region {
+    @apply grid h-full w-full place-items-center gap-4;
+  }
+
+  #title-bar #window-icon {
+    @apply ml-2;
+  }
+
+  #title-bar #menu {
+    @apply flex items-center;
+  }
+
+  #title-bar .menu-button {
+    @apply ml-2;
+  }
+
+  #title-bar #window-controls {
+    @apply absolute right-0 top-0 grid h-full;
+  }
+
+  #title-bar #window-title {
+    @apply col-span-1 flex items-center gap-2 overflow-hidden text-xs;
+  }
+
+  #main {
+    @apply absolute top-10 w-full overflow-y-auto;
+  }
+}

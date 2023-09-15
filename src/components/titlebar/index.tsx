@@ -10,7 +10,10 @@ import TitleBarControlButton from './control-button'
 import TitleBarMenuDropDownMenu from './dropdown-menu'
 import MenuBarItem from './menubar'
 
+import '@/styles/titlebar.css'
+
 const favicon = document.head.querySelector('link[rel=icon]')?.getAttribute('href')
+const title = document.head.querySelector('title')?.innerText
 
 interface Props {
   showTitle?: boolean
@@ -21,14 +24,15 @@ const TitleBar: React.FC<Props> = ({ showIcon = true, showTitle = true }) => {
   return (
     <header id="title-bar">
       <div id="drag-region">
-        <div id="window-title">
+        <div id="window-icon">
           {showIcon && favicon && <img src={favicon} className="h-4 w-4" />}
-          {showTitle && <span>Electron quick start</span>}
         </div>
 
         <div id="menu">
           <TitleBarMenu />
         </div>
+
+        <div id="window-title">{showTitle && <span>{title}</span>}</div>
 
         <TitleBarControls />
       </div>

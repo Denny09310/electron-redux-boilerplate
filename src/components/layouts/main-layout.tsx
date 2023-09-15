@@ -6,7 +6,7 @@ import TitleBar from '../titlebar'
 const MainLayout = () => {
   return (
     <Fragment>
-      <TitleBar showTitle={false} />
+      <TitleBar />
       <div id="main">
         <Outlet />
       </div>
