@@ -8,7 +8,7 @@ import useWindowSizeChanged from '@/hooks/useWindowSizeChanged'
 
 import TitleBarControlButton from './control-button'
 import TitleBarMenuDropDownMenu from './dropdown-menu'
-import MenuBarItem from './menu-bar'
+import MenuBarItem from './menubar'
 
 const favicon = document.head.querySelector('link[rel=icon]')?.getAttribute('href')
 
@@ -41,7 +41,7 @@ const TitleBarMenu = () => {
 
   if (width >= 1024)
     return (
-      <Menubar>
+      <Menubar className="border-none">
         {MENU.map((item) => (
           <MenuBarItem key={item.id} depth={0} {...item} />
         ))}
